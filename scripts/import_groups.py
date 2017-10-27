@@ -6,7 +6,7 @@ from django.db import transaction
 from teams.models import Team, TeamMember
 
 arr = []
-with open("../../groups.json", "r") as f:
+with open("../groups.json", "r") as f:
     arr = json.load(f)
 
 Team.objects.all().delete()
