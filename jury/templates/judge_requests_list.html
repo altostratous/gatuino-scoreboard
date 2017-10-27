@@ -9,17 +9,25 @@
 <table>
     <thead>
         <th>Team</th>
+        <th>Feature</th>
         <th>Judge 1</th>
         <th>Judge 2</th>
         <th>Status</th>
+        <th>Assign/Deassign</th>
     </thead>
     <tbody>
     {% for judge_request in judge_requests %}
         <tr>
             <td>{{ judge_request.team }}</td>
+            <td>{{ judge_request.feature }}</td>
             <td>{{ judge_request.judge1 }}</td>
             <td>{{ judge_request.judge2 }}</td>
             <td>{{ judge_request.is_closed }}</td>
+            {% if judge_request.judge1 == request.user.judge or judge_request.judge2 == request.user.judge %}
+                <td><a href="{% url 'jury:deassign' judge_request.pk %}">Deassign</a></td>
+            {% else %}
+                <td><a href="{% url 'jury:assign' judge_request.pk %}">Assign to myself!</a></td>
+            {% endif %}
         </tr>
     {% endfor %}
     </tbody>

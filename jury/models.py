@@ -23,11 +23,13 @@ class JudgeRequest(models.Model):
 
     @property
     def judge1(self):
-        return self.assignees.first() or '--'
+        return getattr(self.assignees.first(), 'judge', '--')
 
     @property
     def judge2(self):
-        return self.assignees.last() or '--'
+        if self.assignees.count() < 2:
+            return '--'
+        return getattr(self.assignees.first(), 'judge', '--')
 
     @property
     def judge1_score(self):
@@ -48,8 +50,8 @@ class JudgeRequest(models.Model):
 
 class JudgeRequestAssigment(models.Model):
     judge = models.ForeignKey(to=Judge, related_name='assignments')
-    score = models.IntegerField()
-    is_passed = models.BooleanField()
+    score = models.IntegerField(null=True, blank=True)
+    is_passed = models.BooleanField(default=False)
     judge_request = models.ForeignKey(to=JudgeRequest, related_name='assignees')
 
     def __str__(self):
