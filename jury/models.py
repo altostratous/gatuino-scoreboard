@@ -22,25 +22,25 @@ class JudgeRequest(models.Model):
         return '{} for {}'.format(str(self.team), str(self.feature))
 
     @property
-    def judge1(self):
-        return getattr(self.assignees.first(), 'judge', '--')
+    def assignee1(self):
+        return self.assignees.first() or None
 
     @property
-    def judge2(self):
+    def assignee2(self):
         if self.assignees.count() < 2:
-            return '--'
-        return getattr(self.assignees.first(), 'judge', '--')
+            return None
+        return self.assignees.last() or None
 
     @property
     def judge1_score(self):
-        return getattr(self.judge1, 'score', '--')
+        return getattr(self.assignee1, 'score', '--')
 
     @property
     def judge2_score(self):
-        return getattr(self.judge2, 'score', '--')
+        return getattr(self.assignee2, 'score', '--')
 
     @property
-    def final_score(self):
+    def score(self):
         return self.assignees.aggregate(score=Avg('score'))['score'] or 0
 
     @property

@@ -1,12 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+    Request list
+{% endblock %}
+{% block judgerequests_active %}
+    class="active"
+{% endblock %}
+{% block content %}
 
-<table>
+<div align="center">
+    <a href="?filter=unassigned"><button type="button" class="btn {% if filter == 'unassigned' %} btn-info {% else %} btn-primary {% endif %}">unassigned requests</button></a>
+    <a href="?filter=todo"><button type="button" class="btn {% if filter == 'todo' %} btn-info {% else %} btn-primary {% endif %}">TODO requests</button></a>
+    <a href="?filter=past"><button type="button" class="btn {% if filter == 'past' %} btn-info {% else %} btn-primary {% endif %}">my past requests</button></a>
+    <a href="?filter=other"><button type="button" class="btn {% if filter == 'other' %} btn-info {% else %} btn-primary {% endif %}">other requests</button></a>
+</div>
+
+<table class="table table-hover table-responsive table-striped" style="background-color: white">
     <thead>
         <th>Team</th>
         <th>Feature</th>
@@ -20,18 +29,22 @@
         <tr>
             <td>{{ judge_request.team }}</td>
             <td>{{ judge_request.feature }}</td>
-            <td>{{ judge_request.judge1 }}</td>
-            <td>{{ judge_request.judge2 }}</td>
+            <td>{{ judge_request.assignee1.judge }} {% if judge_request.assignee1 %} ({{ judge_request.judge1_score}}) {% endif %}</td>
+            <td>{{ judge_request.assignee2.judge }} {% if judge_request.assignee2 %} ({{ judge_request.judge2_score}}) {% endif %}</td>
             <td>{{ judge_request.is_closed }}</td>
-            {% if judge_request.judge1 == request.user.judge or judge_request.judge2 == request.user.judge %}
-                <td><a href="{% url 'jury:deassign' judge_request.pk %}">Deassign</a></td>
+            {% if judge_request.assignee1.judge == request.user.judge or judge_request.assignee2.judge == request.user.judge %}
+                <td>
+                    <a href="{% url 'jury:judge-request:judge' judge_request.pk %}"><button class="btn btn-primary">Judge</button></a>
+                    {% if not judge_request.is_closed %}
+                    <a href="{% url 'jury:judge-request:deassign' judge_request.pk %}"><button class="btn btn-danger">Deassign</button></a>
+                    {% endif %}
+                </td>
             {% else %}
-                <td><a href="{% url 'jury:assign' judge_request.pk %}">Assign to myself!</a></td>
+                <td><a href="{% url 'jury:judge-request:assign' judge_request.pk %}"><button class="btn btn-success">Assign to myself!</button></a></td>
             {% endif %}
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
-</body>
-</html>
+{% endblock %}

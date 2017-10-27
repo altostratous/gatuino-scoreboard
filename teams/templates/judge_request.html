@@ -25,7 +25,7 @@
                 <td>{{ judge_request.feature }}</td>
                 <td>{{ judge_request.judge1_score }}</td>
                 <td>{{ judge_request.judge2_score }}</td>
-                <td>{{ judge_request.final_score }}</td>
+                <td>{{ judge_request.score }}</td>
                 <td>{{ judge_request.is_passed }}</td>
                 <td>{{ judge_request.is_closed }}</td>
             </tr>
@@ -49,9 +49,7 @@
     <div class="col-xs-10">{{ form.feature|add_class:'form-control' }}</div>
         </div>
     <div class="form-group">
-        <div class="">
-            <button class="btn btn-success" type="submit">Submit new request</button>
-        </div>
+        <button class="btn btn-success" type="submit">Submit new request</button>
     </div>
 </form>
         </div>

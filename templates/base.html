@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block static %}
         <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
-        <link rel="stylesheet" href="{% static "style.css" %}">
+        <link rel="stylesheet" href="{% static "style.css" %}?v=1">
         <script src="{% static 'jquery.min.js' %}"></script>
         <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     {% endblock %}
@@ -33,6 +33,10 @@
                     <li {% block judgerequest_active %}{% endblock %}><a href="{% url 'teams:judge-request' %}">Request</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    {% if request.user.judge %}
+                        <li {% block judgerequests_active %}{% endblock %}><a href="{% url 'jury:judge-requests' %}"><span class=""></span>View Requests</a></li>
+                    {% endif %}
+
                     {% if request.user.is_authenticated %}
                         <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     {% else %}

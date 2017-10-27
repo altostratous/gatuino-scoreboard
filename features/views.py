@@ -25,7 +25,5 @@ class FeatureView(DetailView):
         if hasattr(self.request.user, 'team'):
             context['judge_requests'] = self.request.user.team.judge_requests.filter(
                 feature=self.object).order_by('-time')
-            context['score'] = Attempt.get_score(self.request.user.team, self.object)
-            context['is_passed'] = Attempt.get_is_passed(self.request.user.team, self.object)
         return context
 

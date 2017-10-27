@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+    Judging
+{% endblock %}
+{% block judgerequests_active %}
+    class="active"
+{% endblock %}
+{% block content %}
+
+<div class="jumbotron container img-rounded" style="background-color: lightgray">
+
+    <h3>{{ object.judge_request.team }}</h3>
+    <h3>{{ object.judge_request.feature }}</h3>
+
+    <div class="form-horizontal col-sm-offset-1 col-sm-12">
+        <form method="post">
+        {% csrf_token %}
+        {{form.errors}}
+
+        <div class="radio">
+        <input type="radio" value="not-passed" name="select-score" id="not-passed">
+        <label for="not-passed">No score</label>
+        </div>
+
+        <div class="radio">
+        <input type="radio" value="half-passed" name="select-score" id="half-passed">
+        <label for="half-passed">Passed with half score</label>
+
+        </div>
+
+        <div class="radio">
+        <input type="radio" value="full-passed" name="select-score" id="full-passed">
+        <label for="full-passed">Passed with full score</label>
+        </div>
+
+        <div class="radio">
+        <input type="radio" value="25-extra-passed" name="select-score" id="25-extra-passed">
+        <label for="25-extra-passed">Passed with 25% extra score</label>
+        </div>
+
+        <div class="radio">
+        <input type="radio" value="50-extra-passed" name="select-score" id="50-extra-passed">
+        <label for="50-extra-passed">Passed with 50% extra score</label>
+        </div>
+
+        <input type="hidden" name="score" value="{{ object.score }}">
+
+        <div class="checkbox">
+        <input type="checkbox" name="is_passed" checked="{{ object.is_passed }}" hidden>
+        </div>
+
+    <div class="">
+        <div class="checkbox">
+          <label>
+        <input type="checkbox" name="is_closed" id="is-closed" checked="{{ object.judge_request.is_closed }}" class=" form-control">
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            Close the request
+          </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+            <button class="btn btn-success" type="submit">Judge</button>
+        <a href="{% url 'jury:judge-requests' %}"> <button class="btn btn-danger" type="button">Cancel</button></a>
+
+    </div>
+        </form>
+    </div>
+</div>
+<script>
+    $("input[type='radio']").change(function(){
+        var score, isPassed;
+        switch($(this).val()){
+            case 'not-passed':
+                score = 0;
+                isPassed = false;
+                break;
+            case 'half-passed':
+                score = 0.5;
+                isPassed = true;
+                break;
+            case 'full-passed':
+                score = 1;
+                isPassed = true;
+                break;
+            case '25-extra-passed':
+                score = 1.25;
+                isPassed = true;
+                break;
+            case '50-extra-passed':
+                score = 1.5;
+                isPassed = true;
+                break;
+        }
+        $("input[name='score']").val(parseInt(score * {{ object.judge_request.feature.score }}));
+        $("input[name='is_passed']").prop('checked', isPassed);
+    });
+</script>
+
+{% endblock %}
