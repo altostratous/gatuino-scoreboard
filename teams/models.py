@@ -8,8 +8,12 @@ class Team(models.Model):
     name = models.CharField(max_length=50)
     is_official = models.BooleanField()
 
-    def __str__(self):
+    @property
+    def display_name(self):
         return ('* ' if not self.is_official else '') + self.name
+
+    def __str__(self):
+        return self.user.username + ': ' + self.display_name
 
 
 class TeamMember(models.Model):

@@ -22,12 +22,20 @@ class JudgeRequest(models.Model):
         return '{} for {}'.format(str(self.team), str(self.feature))
 
     @property
+    def judge1(self):
+        return self.assignees.first() or '--'
+
+    @property
+    def judge2(self):
+        return self.assignees.last() or '--'
+
+    @property
     def judge1_score(self):
-        return getattr(self.assignees.first(), 'score', '--')
+        return getattr(self.judge1, 'score', '--')
 
     @property
     def judge2_score(self):
-        return getattr(self.assignees.last(), 'score', '--')
+        return getattr(self.judge2, 'score', '--')
 
     @property
     def final_score(self):
