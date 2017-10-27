@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+    Request list
+{% endblock %}
+{% block judgerequest_active %}
+    class="active"
+{% endblock %}
+{% block content %}
+    <div align="center" class="jumbotron container img-rounded" style="background-color: lightgray">
 <h2>Your last judge requests</h2>
-<table>
+    </br>
+<table class="table table-hover table-responsive table" style="background-color: white">
     <thead>
         <th>Feature</th>
         <th>Judge 1 score</th>
@@ -28,11 +32,22 @@
         {% endfor %}
     </tbody>
 </table>
+    </br>
 <h2>Submit a new judge request</h2>
+    </br>
+    <div class="form-horizontal col-sm-offset-3 col-sm-6">
 <form method="post">
     {% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit new request</button>
+    <div class="form-group">
+    <label class="control-label col-xs-3" for="id_feature">Feature</label>
+    <div class="col-xs-9">{{ form.feature|add_class:'form-control' }}</div>
+        </div>
+    <div class="form-group">
+        <div class="">
+            <button class="btn btn-success" type="submit">Submit new request</button>
+        </div>
+    </div>
 </form>
-</body>
-</html>
+        </div>
+    </div>
+{% endblock %}
