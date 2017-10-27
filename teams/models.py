@@ -8,6 +8,9 @@ class Team(models.Model):
     name = models.CharField(max_length=50)
     is_official = models.BooleanField()
 
+    def __str__(self):
+        return ('* ' if not self.is_official else '') + self.name
+
 
 class TeamMember(models.Model):
     team = models.ForeignKey(to='Team', related_name='members', null=True, on_delete=SET_NULL)
@@ -18,4 +21,3 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return self.name
-
