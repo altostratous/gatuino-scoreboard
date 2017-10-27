@@ -29,10 +29,17 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li {% block scoreboard_active %}{% endblock %}><a href="{% url 'features:scoreboard' %}">scoreboard</a></li>
+                    <li {% block scoreboard_active %}{% endblock %}><a href="{% url 'features:scoreboard' %}">Scoreboard</a></li>
+                    <li {% block judgerequest_active %}{% endblock %}><a href="{% url 'teams:judge-request' %}">Request</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    {% endif %}
+
+
                 </ul>
             </div>
         </div>
