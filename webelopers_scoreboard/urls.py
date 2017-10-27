@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'),name='login'),
     url(r'^logout/$',auth_views.LogoutView.as_view(),name='logout'),
     url(r'^teams/', include('teams.urls', namespace='teams')),
+    url(r'^jury/', include('jury.urls', namespace='jury')),
     url(r'^', include('features.urls', namespace='features')),
 ]

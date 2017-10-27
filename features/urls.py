@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from features.views import ScoreboardView
+from features.views import ScoreboardView, FeatureView
 
 urlpatterns = [
-    url(r'^$', ScoreboardView.as_view(), name='scoreboard')
+    url(r'feature/(?P<pk>\w+)/$', FeatureView.as_view(), name='feature'),
+    url(r'^$', ScoreboardView.as_view(), name='scoreboard'),
 ]

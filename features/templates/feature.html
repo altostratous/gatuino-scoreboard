@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>{{feature}}</p>
+<p>{{feature.description}}</p>
+<h2>Your score for this feature: {{ score }} Passed: {{ is_passed }}</h2>
+<h2>Judge requests history</h2>
+<table>
+    <thead>
+        <th>Judge 1 score</th>
+        <th>Judge 2 score</th>
+        <th>Final score</th>
+        <th>Passed</th>
+        <th>status</th>
+    </thead>
+    <tbody>
+        {% for judge_request in judge_requests %}
+            <tr>
+                <td>{{ judge_request.judge1_score }}</td>
+                <td>{{ judge_request.judge2_score }}</td>
+                <td>{{ judge_request.final_score }}</td>
+                <td>{{ judge_request.is_passed }}</td>
+                <td>{{ judge_request.is_closed }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

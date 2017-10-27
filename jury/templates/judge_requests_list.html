@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <thead>
+        <th>Team</th>
+        <th>Judge 1</th>
+        <th>Judge 2</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+    {% for judge_request in judge_requests %}
+        <tr>
+            <td>{{ judge_request.team }}</td>
+            <td>{{ judge_request.judge1 }}</td>
+            <td>{{ judge_request.judge2 }}</td>
+            <td>{{ judge_request.is_closed }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
