@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'teams',
     'jury',
+    'features',
     'widget_tweaks',
 ]
 

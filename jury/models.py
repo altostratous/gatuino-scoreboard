@@ -11,21 +11,10 @@ class Judge(models.Model):
         return self.name
 
 
-class Feature(models.Model):
-    name = models.CharField(max_length=30)
-    description = models.TextField()
-    score = models.IntegerField()
-    id = models.CharField(primary_key=True, max_length=10)
-    prerequisites = models.ManyToManyField(to='Feature', null=True, blank=True)
-
-    def __str__(self):
-        return '{}: {}'.format(self.id, self.name)
-
-
 class JudgeRequest(models.Model):
     time = models.DateTimeField()
     isFinished = models.BooleanField()
-    feature = models.ForeignKey(to=Feature, related_name='judge_requests')
+    feature = models.ForeignKey(to='features.Feature', related_name='judge_requests')
     team = models.ForeignKey(to='teams.Team', related_name='judge_requests')
 
     def __str__(self):
@@ -44,14 +33,3 @@ class JudgeRequestAssigment(models.Model):
                                                         str(self.score))
 
 
-class Attempt(models.Model):
-    team = models.ForeignKey(to='teams.Team')
-    feature = models.ForeignKey(to=Feature)
-    score = models.IntegerField()
-    is_passed = models.BooleanField()
-
-    def __str__(self):
-        return 'team {}, feature: {}, score: {}, passed: {}'.format(str(self.team),
-                                                                    str(self.feature),
-                                                                    str(self.score),
-                                                                    str(self.is_passed))
