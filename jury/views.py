@@ -1,10 +1,10 @@
 from django.contrib.admindocs.views import TemplateDetailView
 from django.shortcuts import render
 from django.views.generic import UpdateView
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic.list import ListView
 
-from jury.models import JudgeRequest
+from jury.models import JudgeRequest, JudgeRequestAssigment
 
 
 class JudgingView(UpdateView):
@@ -20,5 +20,7 @@ class JudgeRequestsListView(TemplateView):
         context['judge_requests'] = JudgeRequest.objects.all()
         return context
 
+
+class AssignToMyselfView(RedirectView):
     def post(self, request, *args, **kwargs):
         pass
