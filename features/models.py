@@ -6,7 +6,7 @@ class Feature(models.Model):
     description = models.TextField()
     score = models.IntegerField()
     id = models.CharField(primary_key=True, max_length=10)
-    prerequisites = models.ManyToManyField(to='Feature', null=True, blank=True)
+    prerequisites = models.ManyToManyField(to='Feature', blank=True)
     day=models.IntegerField()
 
     def __str__(self):
