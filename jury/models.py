@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.aggregates import Sum, Avg, Max
 
 
 class Judge(models.Model):
@@ -19,6 +20,22 @@ class JudgeRequest(models.Model):
 
     def __str__(self):
         return '{} for {}'.format(str(self.team), str(self.feature))
+
+    @property
+    def judge1_score(self):
+        return getattr(self.assignees.first(), 'score', '--')
+
+    @property
+    def judge2_score(self):
+        return getattr(self.assignees.last(), 'score', '--')
+
+    @property
+    def final_score(self):
+        return self.assignees.aggregate(score=Avg('score'))['score'] or 0
+
+    @property
+    def is_passed(self):
+        return self.assignees.aggregate(is_passed=Max('is_passed'))['is_passed'] or False
 
 
 class JudgeRequestAssigment(models.Model):

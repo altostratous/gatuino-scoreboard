@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls.base import reverse
 from django.views.generic.edit import CreateView
 
-from jury.models import JudgeRequest
 from teams.forms import JudgeRequestForm
 
 
@@ -12,7 +11,7 @@ class JudgeRequestView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['judge_requests'] = self.request.user.team.judge_requests.all()
+        context['judge_requests'] = self.request.user.team.judge_requests.order_by('-time')[:10]
         return context
 
     def get_success_url(self):

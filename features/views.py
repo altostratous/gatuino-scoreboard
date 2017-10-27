@@ -10,3 +10,4 @@ class ScoreboardView(TemplateView):
         context['headers'] = ['salam', '1', '2']
         context['standings'] = [['a', 'b', 'c'],['e', 'dd', 'cd'],['ad', 'ed', 'ddd']]
         return context
+
