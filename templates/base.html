@@ -30,7 +30,9 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li {% block scoreboard_active %}{% endblock %}><a href="{% url 'features:scoreboard' %}">Scoreboard</a></li>
+                    {% if request.user.team %}
                     <li {% block judgerequest_active %}{% endblock %}><a href="{% url 'teams:judge-request' %}">Request</a></li>
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if request.user.judge %}

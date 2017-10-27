@@ -6,7 +6,6 @@ from django.db.models.aggregates import Sum, Avg, Max
 class Judge(models.Model):
     user = models.OneToOneField(to=User, related_name='judge')
     name = models.CharField(max_length=30)
-    profile_picture = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name

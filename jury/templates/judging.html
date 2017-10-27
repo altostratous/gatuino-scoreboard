@@ -53,7 +53,7 @@
     <div class="">
         <div class="checkbox">
           <label>
-        <input type="checkbox" name="is_closed" id="is-closed" checked="{{ object.judge_request.is_closed }}" class=" form-control">
+        <input type="checkbox" name="is_closed" id="is-closed" {% if object.judge_request.is_closed %} checked="checked" {% endif %} class=" form-control">
             <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
             Close the request
           </label>
