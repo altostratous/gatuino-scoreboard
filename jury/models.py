@@ -14,7 +14,7 @@ class Judge(models.Model):
 
 class JudgeRequest(models.Model):
     time = models.DateTimeField(auto_now_add=True)
-    is_finished = models.BooleanField(default=False)
+    is_closed = models.BooleanField(default=False)
     feature = models.ForeignKey(to='features.Feature', related_name='judge_requests')
     team = models.ForeignKey(to='teams.Team', related_name='judge_requests')
 

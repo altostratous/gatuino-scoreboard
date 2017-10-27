@@ -1,5 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
+
+from features.models import Feature, Attempt
 
 
 class ScoreboardView(TemplateView):
@@ -9,5 +13,19 @@ class ScoreboardView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['headers'] = ['salam', '1', '2']
         context['standings'] = [['a', 'b', 'c'],['e', 'dd', 'cd'],['ad', 'ed', 'ddd']]
+        return context
+
+
+class FeatureView(DetailView):
+    template_name = 'feature.html'
+    model = Feature
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if hasattr(self.request.user, 'team'):
+            context['judge_requests'] = self.request.user.team.judge_requests.filter(
+                feature=self.object).order_by('-time')
+            context['score'] = Attempt.get_score(self.request.user.team, self.object)
+            context['is_passed'] = Attempt.get_is_passed(self.request.user.team, self.object)
         return context
 

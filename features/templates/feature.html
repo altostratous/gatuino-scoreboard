@@ -5,10 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Your last judge requests</h2>
+<p>{{feature}}</p>
+<p>{{feature.description}}</p>
+<h2>Your score for this feature: {{ score }} Passed: {{ is_passed }}</h2>
+<h2>Judge requests history</h2>
 <table>
     <thead>
-        <th>Feature</th>
         <th>Judge 1 score</th>
         <th>Judge 2 score</th>
         <th>Final score</th>
@@ -18,7 +20,6 @@
     <tbody>
         {% for judge_request in judge_requests %}
             <tr>
-                <td>{{ judge_request.feature }}</td>
                 <td>{{ judge_request.judge1_score }}</td>
                 <td>{{ judge_request.judge2_score }}</td>
                 <td>{{ judge_request.final_score }}</td>
@@ -28,11 +29,6 @@
         {% endfor %}
     </tbody>
 </table>
-<h2>Submit a new judge request</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit new request</button>
-</form>
+
 </body>
 </html>
