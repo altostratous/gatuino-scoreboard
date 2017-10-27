@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from features.models import Feature, Attempt
+
+admin.site.register(Feature)
+admin.site.register(Attempt)
