@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Your previous judge requests</h2>
+<table>
+    <thead>
+        <th>Feature</th>
+        <th>Judge 1 score</th>
+        <th>Judge 2 score</th>
+        <th>Final score</th>
+        <th>Passed</th>
+        <th>status</th>
+    </thead>
+    <tbody>
+        {% for judge_request in judge_requests %}
+            <tr>
+                <td>{{ judge_request.feature }}</td>
+                <td>{{ judge_request.score }}</td>
+                <td>{{ judge_request.score }}</td>
+                <td>{{ judge_request.score }}</td>
+                <td>{{ judge_request.is_passed }}</td>
+                <td>{{ judge_request.is_closed }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h2>Submit a new judge request</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit new request</button>
+</form>
+</body>
+</html>
