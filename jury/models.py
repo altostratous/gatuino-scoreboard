@@ -12,13 +12,13 @@ class Judge(models.Model):
 
 
 class JudgeRequest(models.Model):
-    time = models.DateTimeField()
-    isFinished = models.BooleanField()
+    time = models.DateTimeField(auto_now_add=True)
+    is_finished = models.BooleanField(default=False)
     feature = models.ForeignKey(to='features.Feature', related_name='judge_requests')
     team = models.ForeignKey(to='teams.Team', related_name='judge_requests')
 
     def __str__(self):
-        return '{} for {} at {}'.format(str(self.team), str(self.feature), str(self.time))
+        return '{} for {}'.format(str(self.team), str(self.feature))
 
 
 class JudgeRequestAssigment(models.Model):
@@ -31,5 +31,3 @@ class JudgeRequestAssigment(models.Model):
         return '{} assigned to {} with score {}'.format(str(self.judge),
                                                         str(self.judge_request),
                                                         str(self.score))
-
-
