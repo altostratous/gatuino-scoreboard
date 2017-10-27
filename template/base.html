@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block static %}
+        <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% endblock %}
+    <title>
+        {% block title %}FoP Project{% endblock %}
+    </title>
+</head>
+
+<style>
+    th {
+        text-align: center;
+    }
+</style>
+
+
+<body style="background-color: {{ background_color }}">
+{% block navbar %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand">Webelopers</span>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li {% block teams_active %}{% endblock %}><a href="{% url 'team:list' %}">Teams</a></li>
+                    <li {% block search_active %}{% endblock %}><a href="{% url 'search' %}">Search</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li {% block password_change_active %}{% endblock %}><a href="{% url 'team:password_change' %}">Change Password</a></li>
+                    <li><a href="{% url 'team:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+{% endblock %}
+</body>
+
+</html>
