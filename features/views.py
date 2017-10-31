@@ -1,21 +1,26 @@
+import functools
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
 from features.models import Feature, Attempt
-
+from jury.models import Config
+from teams.models import Team
 
 class ScoreboardView(TemplateView):
     template_name = 'scoreboard.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['headers'] = ['salam', '1', '2']
-        context['standings'] = [['a', 'b', 'c'],['e', 'dd', 'cd'],['ad', 'ed', 'ddd']]
+        if(Config.get_solo().day==1):
+            context['headers'] = ['Team Name']+[feature.id for feature in Feature.objects.all()]+['Total Score']
+            context['standings']=[[team.name]+[Attempt.objects.get(team=team,feature=feature).score if Attempt.objects.filter(team=team,feature=feature).exists() else 0 for feature in Feature.objects.filter(day=1)]+[functools.reduce(lambda x,y: x+y.score,Attempt.objects.filter(team=team),0)] for team in Team.objects.all()]
+        else:
+            context['headers'] = ['Team Name','Day 1','Day 2','Total Score']
+            context['standings']=[[team.name]+[functools.reduce(lambda x,y: x+y.score if y.feature.day==1 else x,Attempt.objects.filter(team=team),0)]+[functools.reduce(lambda x,y: x+y.score if y.feature.day==2 else x,Attempt.objects.filter(team=team),0)]+[functools.reduce(lambda x,y: x+y.score,Attempt.objects.filter(team=team),0)] for team in Team.objects.all()]
         return context
 
-pi
 class FeatureView(DetailView):
     template_name = 'feature.html'
     model = Feature
