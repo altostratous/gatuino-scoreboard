@@ -60,4 +60,4 @@ class JudgeRequestAssigment(models.Model):
                                                         str(self.score))
 
 class Config(SingletonModel):
-    day=models.IntegerField(default=0)
+    day=models.IntegerField(default=1)

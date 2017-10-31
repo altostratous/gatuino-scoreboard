@@ -28,7 +28,8 @@
                 <div class="col-sm-8 col-xs-9">{{ form.password|add_class:'form-control' }}</div>
             </div>
             <div align="center">
-                <button class="btn" type="submit">Log me in!</button>
+                <button class="btn btn-success" type="submit">Log me in!</button>
+                <a href="{% url 'features:scoreboard' %}" class="btn btn-danger" type="submit">Back</a>
             </div>
         </form>
     </div>

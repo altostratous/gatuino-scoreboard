@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 
-class Feature(models.Model):
+class  Feature(models.Model):
     name = models.CharField(max_length=30)
     score = models.IntegerField()
     id = models.CharField(primary_key=True, max_length=10)

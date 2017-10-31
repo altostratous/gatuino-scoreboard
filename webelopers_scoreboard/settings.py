@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'jury',
     'features',
     'widget_tweaks',
+    'solo',
 ]
 
 MIDDLEWARE = [
