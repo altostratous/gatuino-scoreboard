@@ -4,10 +4,22 @@
     td{
       text-align: center;
     }
+    h2{
+        color:white;
+    }
+    h3{
+        color:white;
+    }
+    label{
+        color:white;
+    }
     .blue {
         background-color: #151440;
     }
-    
+    .jumbotron{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 .navbar-inverse {
   background-color: #151440;
   border-color: #292854;
