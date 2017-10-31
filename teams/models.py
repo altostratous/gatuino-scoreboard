@@ -5,7 +5,7 @@ from django.db.models.deletion import SET_NULL
 
 class Team(models.Model):
     user = models.OneToOneField(to=User, related_name='team')
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=60)
     is_official = models.BooleanField()
 
     @property

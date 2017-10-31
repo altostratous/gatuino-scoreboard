@@ -118,6 +118,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Local settings
+local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
+print(local_settings_path)
+if os.path.exists(local_settings_path):
+    exec(open(local_settings_path, 'rb').read())
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
