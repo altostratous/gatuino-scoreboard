@@ -15,7 +15,7 @@ class ScoreboardView(TemplateView):
         context['standings'] = [['a', 'b', 'c'],['e', 'dd', 'cd'],['ad', 'ed', 'ddd']]
         return context
 
-
+pi
 class FeatureView(DetailView):
     template_name = 'feature.html'
     model = Feature

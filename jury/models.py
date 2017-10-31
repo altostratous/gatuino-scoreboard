@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.aggregates import Sum, Avg, Max
+from solo.models import SingletonModel
 
 
 class Judge(models.Model):
@@ -57,3 +58,6 @@ class JudgeRequestAssigment(models.Model):
         return '{} assigned to {} with score {}'.format(str(self.judge),
                                                         str(self.judge_request),
                                                         str(self.score))
+
+class Config(SingletonModel):
+    day=models.IntegerField(default=0)
