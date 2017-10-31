@@ -148,3 +148,13 @@
 .radio label input[type="radio"]:disabled + .cr {
     opacity: .5;
 }
+
+/* source: https://stackoverflow.com/questions/18474564/bootstrap-3-navbar-with-logo */
+.navbar-brand {
+  padding: 0px; /* firefox bug fix */
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 15px; /* firefox bug fix */
+  width: auto;
+}
