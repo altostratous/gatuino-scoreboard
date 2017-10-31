@@ -12,10 +12,10 @@ class ScoreboardView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['headers'] = ['salam', '1', '2']
-        context['standings'] = [['a', 'b', 'c'],['e', 'dd', 'cd'],['ad', 'ed', 'ddd']]
+        context['standings'] = [['a', 'b', 'c'], ['e', 'dd', 'cd'], ['ad', 'ed', 'ddd']]
         return context
 
-pi
+
 class FeatureView(DetailView):
     template_name = 'feature.html'
     model = Feature
@@ -26,4 +26,3 @@ class FeatureView(DetailView):
             context['judge_requests'] = self.request.user.team.judge_requests.filter(
                 feature=self.object).order_by('-time')
         return context
-

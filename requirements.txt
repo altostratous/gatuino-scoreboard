@@ -1,8 +1,8 @@
 Django==1.11.6
 django-extensions==1.9.6
+django-solo==1.1.2
 django-widget-tweaks==1.4.1
 olefile==0.44
 pytz==2017.2
 six==1.11.0
 Werkzeug==0.12.2
-django-solo==1.1.2
