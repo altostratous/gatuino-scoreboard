@@ -104,3 +104,9 @@ ENV/
 **/migrations/**
 !**/migrations/__init__.py
 db.sqlite3
+
+# production
+collected_static/
+media/
+gunicorn.conf.py
+gunicorn.pid

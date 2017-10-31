@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wc^j#w$xdd3yzisj_6wi7c%p1)-*3w8cd2^*me*-$@$3u5#zl5'
+SECRET_KEY = 'sag'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -119,6 +119,12 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Local settings
+local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
+if os.path.exists(local_settings_path):
+    exec(open(local_settings_path, 'rb').read())
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -126,7 +132,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 
 LOGIN_URL = '/login'
