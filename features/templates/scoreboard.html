@@ -18,7 +18,7 @@
             <tr {% if row.0 == request.user.team.name %}style="background-color: lightblue"{% endif %}>
                 <td>{{ forloop.counter }}</td>
                 {% for column in row %}
-                <td style="background-color: {% if column > 0 and forloop.counter != row|length %}lightgreen{% elif column == 0 and forloop.counter != row|length%}lightcoral{% endif %}">{{ column }}</td>
+                <td style="background-color: {% if column > 0 and forloop.counter != row|length and forloop.counter != 0 %}lightgreen{% elif column == 0 and forloop.counter != row|length and forloop.counter != 0%}lightcoral{% endif %}">{{ column }}</td>
                 {% endfor %}
             </tr>
         {% endfor %}
