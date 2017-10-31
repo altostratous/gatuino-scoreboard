@@ -15,10 +15,10 @@
     </thead>
     <tbody>
         {% for row in standings %}
-            <tr {% if row.0 == request.user.team.name %}style="background-color: greenyellow"{% endif %}>
+            <tr {% if row.0 == request.user.team.name %}style="background-color: lightblue"{% endif %}>
                 <td>{{ forloop.counter }}</td>
                 {% for column in row %}
-                <td>{{ column }}</td>
+                <td style="background-color: {% if column > 0 and forloop.counter != row|length %}lightgreen{% elif column == 0 and forloop.counter != row|length%}lightcoral{% endif %}">{{ column }}</td>
                 {% endfor %}
             </tr>
         {% endfor %}
