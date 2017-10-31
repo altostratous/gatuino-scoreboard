@@ -13,7 +13,7 @@
     <h3>{{ object.judge_request.team }}</h3>
     <h3>{{ object.judge_request.feature }}</h3>
 
-    <div class="form-horizontal col-sm-offset-1 col-sm-11">
+    <div class="form-horizontal col-sm-offset-1">
         <form method="post">
         {% csrf_token %}
         {{form.errors}}
