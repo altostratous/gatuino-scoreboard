@@ -104,3 +104,5 @@ ENV/
 **/migrations/**
 !**/migrations/__init__.py
 db.sqlite3
+
+collected_static/
