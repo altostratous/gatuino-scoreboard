@@ -17,17 +17,17 @@
         <th>Judge 2 score</th>
         <th>Final score</th>
         <th>Passed</th>
-        <th>Is closed</th>
+        <th>Status</th>
     </thead>
     <tbody>
         {% for judge_request in judge_requests %}
             <tr>
-                <td>{{ judge_request.feature }}</td>
+                <td> <a href="{% url 'features:feature' pk=judge_request.feature.id %}">{{ judge_request.feature }}</a></td>
                 <td>{{ judge_request.judge1_score }}</td>
                 <td>{{ judge_request.judge2_score }}</td>
                 <td>{{ judge_request.score }}</td>
-                <td>{{ judge_request.is_passed }}</td>
-                <td>{{ judge_request.is_closed }}</td>
+                <td><span class="glyphicon {% if judge_request.is_passed %}glyphicon-ok" style="color:green"{% else %}glyphicon-remove" style="color:red"{% endif %}></span></td>
+                <td><b style="color:{% if judge_request.is_closed %}red">closed{% else %}green">open{% endif %}</b></td>
             </tr>
         {% endfor %}
     </tbody>
