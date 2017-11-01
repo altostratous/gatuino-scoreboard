@@ -17,7 +17,7 @@ class ScoreboardView(TemplateView):
         context = super().get_context_data(**kwargs)
         if Config.get_solo().day==1:
             context['headers'] = ['Team Name']+[feature.id for feature in Feature.objects.all()]+['Total Score']
-            context['standings']=sorted([[team.name]+[Attempt.objects.get(team=team,feature=feature).score if Attempt.objects.filter(team=team,feature=feature).exists() else '--' for feature in Feature.objects.filter(day=1)]+[functools.reduce(lambda x,y: x+y.score,Attempt.objects.filter(team=team),0)] for team in Team.objects.all()],key=itemgetter(len(context['headers'])-1),reverse=True)
+            context['standings']=sorted([[team.name]+[Attempt.objects.get(team=team,feature=feature).score if Attempt.objects.filter(team=team,feature=feature).exists() else '--' for feature in Feature.objects.filter(day=1)]+[functools.reduce(lambda x,y: x+y.score if y.score else x,Attempt.objects.filter(team=team),0)] for team in Team.objects.all()],key=itemgetter(len(context['headers'])-1),reverse=True)
 
         else:
             context['headers'] = ['Team Name','Day 1','Day 2','Total Score']
