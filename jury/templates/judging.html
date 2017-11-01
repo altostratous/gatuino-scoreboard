@@ -92,7 +92,7 @@
                 isPassed = true;
                 break;
         }
-        $("input[name='score']").val(parseInt(score * {{ object.judge_request.feature.score }}));
+        $("input[name='score']").val(parseFloat(score * {{ object.judge_request.feature.score }}));
         $("input[name='is_passed']").prop('checked', isPassed);
     });
 </script>

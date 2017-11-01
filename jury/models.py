@@ -55,7 +55,7 @@ class JudgeRequest(models.Model):
 
 class JudgeRequestAssigment(models.Model):
     judge = models.ForeignKey(to=Judge, related_name='assignments')
-    score = models.IntegerField(null=True, blank=True)
+    score = models.FloatField(null=True, blank=True)
     is_passed = models.BooleanField(default=False)
     judge_request = models.ForeignKey(to=JudgeRequest, related_name='assignees')
 
