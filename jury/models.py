@@ -1,4 +1,3 @@
-import django
 from django.contrib.auth.models import User
 from django.db import models, connection
 from django.db.models.aggregates import Sum, Avg, Max
@@ -47,7 +46,8 @@ class JudgeRequest(models.Model):
     @property
     def is_passed(self):
         if connection.vendor == 'postgresql':
-            agg = django.contrib.postgres.aggregates.BoolOr
+            from django.contrib.postgres.aggregates import BoolOr
+            agg = BoolOr
         else:
             agg = Max
         return self.assignees.aggregate(is_passed=agg('is_passed'))['is_passed'] or False
