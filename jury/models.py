@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models, connection
 from django.db.models.aggregates import Sum, Avg, Max
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.test.client import Client
 from django.urls import reverse
 from solo.models import SingletonModel
@@ -83,4 +83,4 @@ def freeze_handler(sender, instance, **kwargs):
         file.close()
 
 
-post_save.connect(freeze_handler, sender=Config)
+pre_save.connect(freeze_handler, sender=Config)
