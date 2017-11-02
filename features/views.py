@@ -3,6 +3,7 @@ from operator import itemgetter
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.template.response import TemplateResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
@@ -17,7 +18,7 @@ class ScoreboardView(TemplateView):
     def get(self, request, *args, **kwargs):
         if Config.get_solo().is_frozen and not hasattr(request.user, 'judge') and \
                 not request.user.is_superuser:
-            return render(request, 'frozen_scoreboard.html')
+            return TemplateResponse(request, 'frozen_scoreboard.html')
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
