@@ -14,7 +14,9 @@ for team in Team.objects.all():
         if num > 0:
             attempt = Attempt.objects.get(team=team, feature=feature)
             if total/num != attempt.score:
-                print("Inconsistent score for {}, feature {}".format(team, feature))
+                print("Inconsistent score for {}, feature {}: total_score: {}, "
+                      "number of judges: {}, "
+                      "attempt score: {}".format(team, feature, total, num, attempt.score))
         else:
             if Attempt.objects.filter(team=team, feature=feature).exists():
                 print("Invalid attempt for {}, feature {}".format(team, feature))
