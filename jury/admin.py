@@ -9,7 +9,7 @@ class AssigneeInline(admin.TabularInline):
 
 
 class JudgeRequestAdmin(admin.ModelAdmin):
-    inlines = [AssigneeInline]
+    inlines  = [AssigneeInline]
 
 
 admin.site.register(Judge)

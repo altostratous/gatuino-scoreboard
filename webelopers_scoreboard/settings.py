@@ -25,7 +25,7 @@ SECRET_KEY = 'sag'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['testserver', '127.0.0.1']
 
 
 # Application definition
@@ -139,3 +139,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL= '/'
+
+FROZEN_SCOREBOARD_DIR = os.path.join(os.path.join(BASE_DIR, 'templates'), 'frozen_scoreboard.html')

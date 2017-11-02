@@ -1,6 +1,10 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models, connection
 from django.db.models.aggregates import Sum, Avg, Max
+from django.db.models.signals import post_save
+from django.test.client import Client
+from django.urls import reverse
 from solo.models import SingletonModel
 
 
@@ -64,5 +68,19 @@ class JudgeRequestAssigment(models.Model):
                                                         str(self.judge_request),
                                                         str(self.score))
 
+
 class Config(SingletonModel):
-    day=models.IntegerField(default=1)
+    day = models.IntegerField(default=1)
+    is_frozen = models.BooleanField(default=False)
+
+
+def freeze_handler(sender, instance, **kwargs):
+    if instance.is_frozen:
+        client = Client()
+        response = client.get(reverse('features:scoreboard')).content.decode()
+        file = open(settings.FROZEN_SCOREBOARD_DIR, 'w')
+        file.write(response)
+        file.close()
+
+
+post_save.connect(freeze_handler, sender=Config)
