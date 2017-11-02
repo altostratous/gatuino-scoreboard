@@ -1,6 +1,7 @@
 import functools
 from operator import itemgetter
 
+from django.db.models import Sum
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 
@@ -23,7 +24,8 @@ class ScoreboardView(TemplateView):
         all_teams = Team.objects.all()
         if self.request.GET.get('show-unofficial') != 'true':
             all_teams = all_teams.filter(is_official=True)
-        if Config.get_solo().day == 1:
+        day = Config.get_solo().day
+        if day == 1:
             context['headers'] = ['Team Name'] + [feature.id for feature in
                                                   Feature.objects.filter(day=1)] + ['Total Score']
             context['standings'] = sorted([[team.display_name] + [
@@ -35,15 +37,20 @@ class ScoreboardView(TemplateView):
                                           key=itemgetter(len(context['headers']) - 1), reverse=True)
 
         else:
-            context['headers'] = ['Team Name', 'Day 1', 'Day 2', 'Total Score']
+            context['headers'] = ['Team Name'] + ['Day1'] + [feature.id for feature in
+                                                             Feature.objects.filter(day=2)] + [
+                                     'Total Score']
             context['standings'] = sorted([[team.display_name] + [
-                functools.reduce(lambda x, y: x + y.score if y.feature.day == 1 else x,
-                                 Attempt.objects.filter(team=team), 0)] + [functools.reduce(
-                lambda x, y: x + y.score if y.feature.day == 2 else x,
-                Attempt.objects.filter(team=team), 0)] + [functools.reduce(lambda x, y: x + y.score,
-                                                                           Attempt.objects.filter(
-                                                                               team=team), 0)] for
-                                           team in all_teams], key=itemgetter(3), reverse=True)
+                Attempt.objects.filter(team=team, feature__day=1).aggregate(day1=Sum('score'))[
+                    'day1'] or '--'] + [
+                                               Attempt.objects.get(team=team,
+                                                                   feature=feature).score if Attempt.objects.filter(
+                                                   team=team, feature=feature).exists() else '--'
+                                               for feature in
+                                               Feature.objects.filter(day=2)] + [functools.reduce(
+                lambda x, y: x + y.score if y.score else x, Attempt.objects.filter(team=team), 0)]
+                                           for team in all_teams],
+                                          key=itemgetter(len(context['headers']) - 1), reverse=True)
         return context
 
 
