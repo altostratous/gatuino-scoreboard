@@ -19,4 +19,4 @@ for team in Team.objects.all():
                       "attempt score: {}".format(team, feature, total, num, attempt.score))
         else:
             if Attempt.objects.filter(team=team, feature=feature).exists():
-                print("Invalid attempt for {}, feature {}".format(team, feature))
+                print("Out of date attempt for {}, feature {}".format(team, feature))
