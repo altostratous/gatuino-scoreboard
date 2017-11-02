@@ -83,4 +83,7 @@ def freeze_handler(sender, instance, **kwargs):
         file.close()
 
 
+# TODO: this sends request with no logged in user so link to judge-request disappers
+# I fixed this manually! Everytime I save config I should put the link manually
+# in the frozen_scoreboard.html
 pre_save.connect(freeze_handler, sender=Config)
