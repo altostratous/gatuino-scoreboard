@@ -1,21 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> {% block static %}
-    <link rel="stylesheet" href="{% static " bootstrap/css/bootstrap.min.css " %}">
-    <link rel="stylesheet" href="{% static " style.css " %}?v=1.1">
-    <script src="{% static 'jquery.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script> {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block static %}
+        <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "style.css" %}?v=1.1">
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% endblock %}
     <title>
         {% block title %}Gatuino 2018{% endblock %}
     </title>
 </head>
 
 <body style="background-image: url({% static 'images/background.jpg' %})">
-    {% block navbar %}
+{% block navbar %}
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -24,37 +25,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#" class="navbar-brand navbar-left">
-                    <img src="{% static 'images/name.png' %}">
-                </a>
+                <a href="#" class="navbar-brand navbar-left"><img src="{% static 'images/name.png' %}"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li {% block scoreboard_active %}{% endblock %}>
-                        <a href="{% url 'features:scoreboard' %}">Scoreboard</a>
-                    </li>
+                    <li {% block scoreboard_active %}{% endblock %}><a href="{% url 'features:scoreboard' %}">Scoreboard</a></li>
                     {% if request.user.team %}
-                    <li {% block judgerequest_active %}{% endblock %}>
-                        <a href="{% url 'teams:judge-request' %}">Request</a>
-                    </li>
+                    <li {% block judgerequest_active %}{% endblock %}><a href="{% url 'teams:judge-request' %}">Request</a></li>
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if request.user.judge %}
-                    <li {% block judgerequests_active %}{% endblock %}>
-                        <a href="{% url 'jury:judge-requests' %}">
-                            <span class=""></span>View Requests</a>
-                    </li>
-                    {% endif %} {% if request.user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'logout' %}">
-                            <span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
+                        <li {% block judgerequests_active %}{% endblock %}><a href="{% url 'jury:judge-requests' %}"><span class=""></span>View Requests</a></li>
+                    {% endif %}
+
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                     {% else %}
-                    <li>
-                        <a href="{% url 'login' %}">
-                            <span class="glyphicon glyphicon-log-in"></span> Login</a>
-                    </li>
+                        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     {% endif %}
 
 
@@ -62,7 +50,9 @@
             </div>
         </div>
     </nav>
-    {% endblock %} {% block content %} {% endblock %}
+{% endblock %}
+{% block content %}
+{% endblock %}
 </body>
 
 </html>
