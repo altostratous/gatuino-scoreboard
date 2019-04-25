@@ -19,8 +19,12 @@ class Attempt(models.Model):
 
     team = models.ForeignKey(to='teams.Team', related_name='attempts')
     feature = models.ForeignKey(to=Feature)
-    score = models.FloatField(null=True)
+    relative_score = models.FloatField(null=True)
     is_passed = models.BooleanField(default=False)
+
+    @property
+    def score(self):
+        return self.feature.score * self.relative_score
 
     def __str__(self):
         return 'team {}, feature: {}, score: {}, passed: {}'.format(str(self.team),

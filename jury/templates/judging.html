@@ -24,6 +24,12 @@
         </div>
 
         <div class="radio">
+        <input type="radio" value="quarter-passed" name="select-score" id="half-passed">
+        <label for="half-passed">Passed with quarter score</label>
+
+        </div>
+
+        <div class="radio">
         <input type="radio" value="half-passed" name="select-score" id="half-passed">
         <label for="half-passed">Passed with half score</label>
 
@@ -75,6 +81,10 @@
                 score = 0;
                 isPassed = false;
                 break;
+            case 'quarter-passed':
+                score = 0.25;
+                isPassed = true;
+                break;
             case 'half-passed':
                 score = 0.5;
                 isPassed = true;
@@ -92,7 +102,7 @@
                 isPassed = true;
                 break;
         }
-        $("input[name='score']").val(parseFloat(score * {{ object.judge_request.feature.score }}));
+        $("input[name='score']").val(parseFloat(score));
         $("input[name='is_passed']").prop('checked', isPassed);
     });
 </script>

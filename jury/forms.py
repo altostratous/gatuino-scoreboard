@@ -23,7 +23,7 @@ class JudgingForm(ModelForm):
 
         attempt, _ = Attempt.objects.get_or_create(team=instance.judge_request.team,
                                                    feature=instance.judge_request.feature)
-        attempt.score = instance.judge_request.score
+        attempt.relative_score = instance.judge_request.score
         attempt.is_passed = instance.judge_request.is_passed
         print(attempt.is_passed)
         attempt.save()
