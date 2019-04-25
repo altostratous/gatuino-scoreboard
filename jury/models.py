@@ -45,6 +45,10 @@ class JudgeRequest(models.Model):
 
     @property
     def score(self):
+        return self.feature.score * self.relative_score
+
+    @property
+    def relative_score(self):
         return self.assignees.aggregate(score=Avg('score'))['score'] or 0
 
     @property

@@ -18,6 +18,7 @@
         <th>Final score</th>
         <th>Passed</th>
         <th>Status</th>
+        <th>Action</th>
     </thead>
     <tbody>
         {% for judge_request in judge_requests %}
@@ -28,6 +29,14 @@
                 <td>{{ judge_request.score }}</td>
                 <td><span class="glyphicon {% if judge_request.is_passed %}glyphicon-ok" style="color:green"{% else %}glyphicon-remove" style="color:red"{% endif %}></span></td>
                 <td><b style="color:{% if judge_request.is_closed %}red">closed{% else %}green">open{% endif %}</b></td>
+                <td>
+                {% if not judge_request.is_closed %}
+                        <form method="post" action="{% url 'teams:delete-judge-request' pk=judge_request.id %}">
+                        <input class="btn btn-danger" type="submit" value="Cancel">
+                        {% csrf_token %}
+                        </form>
+                {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </tbody>
