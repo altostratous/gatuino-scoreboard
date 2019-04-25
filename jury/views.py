@@ -51,6 +51,13 @@ class JudgeRequestsListView(ListView):
     def get_context_data(self, **kwargs):
         return {**super().get_context_data(**kwargs), 'filter': self.filter}
 
+
+class TeamJudgeRequestsListView(JudgeRequestsListView):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(team_id=self.kwargs['team_id'])
+
+
 class AssignView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):

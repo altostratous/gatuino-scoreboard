@@ -10,6 +10,12 @@
     <div align="center" class="jumbotron container img-rounded blue">
 <h2>Your last judge requests</h2>
     </br>
+    <div style="background: #ffffff; padding: 5px;">
+        <div id="qrcode"></div>
+    </div>
+    <script type="text/javascript">
+        new QRCode(document.getElementById("qrcode"), "{{ request.scheme }}://{{ request.get_host }}{% url 'jury:team-judge-requests' request.user.team.id %}");
+    </script>
 <table class="table table-hover table-responsive table" style="background-color: white">
     <thead>
         <th>Feature</th>

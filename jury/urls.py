@@ -11,6 +11,7 @@ judge_request_urlpatterns = [
 
 urlpatterns = [
     url(r'^judge-requests/$', JudgeRequestsListView.as_view(), name='judge-requests'),
+    url(r'^team-judge-requests/(?P<team_pk>\w+)/$', JudgeRequestsListView.as_view(), name='team-judge-requests'),
     url(r'^judge-request/(?P<pk>\w+)/', include(judge_request_urlpatterns,
                                                  namespace='judge-request')),
 ]
