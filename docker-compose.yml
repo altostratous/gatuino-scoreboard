@@ -22,7 +22,7 @@ services:
     restart: always
     command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py collectstatic <<< yes && gunicorn -b 0.0.0.0:8000 --workers=4 webelopers_scoreboard.wsgi"
     volumes:
-      - ./static:/root/hardwar/static/root
+      - ./static:/root/hardwar/static
     depends_on:
       - db
     expose:
